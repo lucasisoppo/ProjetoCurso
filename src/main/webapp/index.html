@@ -47,7 +47,9 @@
                 ng-click="vm.calcular()"
                 class="btn btn-success btn-lg btn-block">Calcular</button>
         </form>
-        <div>{{vm.resposta}}</div>
+        <div ng-repeat="msg in vm.mensagens track by $index">
+           {{msg}}
+        </div>       
     </div>
 
     <!-- Optional JavaScript -->
@@ -56,27 +58,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script>
-        angular.module('app', []);
-
-        angular
-            .module('app')
-            .controller('MeuController', MeuController);
-
-        function MeuController($http) {
-            var vm = this;
-            vm.nome = '';
-            vm.peso = '';
-            vm.altura = '';
-            vm.resposta = '';
-
-            vm.calcular = function() {
-                $http.get('/api/hello?nome=' + vm.nome)
-                    .then(function(response) {
-                        vm.resposta = response.data.mensagem;
-                    })
-            }
-        }
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
