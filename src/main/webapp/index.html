@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="app" lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Calculadora IMC</title>
+  </head>
+  <body ng-controller="MeuController as vm">
+    <div class="container">
+        <h2 class="col-md-8 display-4 mx-auto">Digite seus dados para calcularmos o seu IMC</h2>
+        <form class="col-md-8 mx-auto">
+            <div class="form-group">
+                <label for="nome">
+                    Nome
+                </label>
+                <input type="text" 
+                    class="form-control" 
+                    id="nome" 
+                    ng-model="vm.nome"
+                    placeholder="Digite o nome">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="peso">Peso</label>
+                    <input 
+                         type="text" 
+                         ng-model="vm.peso" 
+                         class="form-control" 
+                         id="peso" 
+                         placeholder="Digite o peso">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="altura">Altura</label>
+                    <input 
+                        type="text" 
+                        ng-model="vm.altura"
+                        class="form-control" 
+                        id="altura" 
+                        placeholder="Digite a altura">
+                </div>
+            </div>
+            <button 
+                type="button" 
+                ng-click="vm.calcular()"
+                class="btn btn-success btn-lg btn-block">Calcular</button>
+        </form>
+        <div>{{vm.resposta}}</div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script>
+        angular.module('app', []);
+
+        angular
+            .module('app')
+            .controller('MeuController', MeuController);
+
+        function MeuController($http) {
+            var vm = this;
+            vm.nome = '';
+            vm.peso = '';
+            vm.altura = '';
+            vm.resposta = '';
+
+            vm.calcular = function() {
+                $http.get('/api/hello?nome=' + vm.nome)
+                    .then(function(response) {
+                        vm.resposta = response.data.mensagem;
+                    })
+            }
+        }
+    </script>
+  </body>
+</html>
